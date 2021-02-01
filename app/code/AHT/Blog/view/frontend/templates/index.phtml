@@ -1,0 +1,87 @@
+<h1>
+    <?php
+
+/**
+ * @var \AHT\Blog\Block\Index $block
+ */
+
+echo $block->sayHello();
+
+?>
+</h1>
+<style>
+    h1{
+        text-align: center;
+    }
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th.a-action{
+        width: 18%;
+    }
+
+    .edit:link, .edit:visited,
+    .delete:link, .delete:visited {
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .edit:link, .edit:visited {
+        background-color: #2489cc;
+    }
+
+    .delete:link, .delete:visited {
+        background-color: #f44336;
+    }
+
+    .edit:hover, .edit:active {
+        background-color: #006bb4;
+    }
+
+    .delete:hover, .delete:active {
+        background-color: red;
+    }
+</style>
+
+<div>
+    <a class="edit" href="/blog/post/add" rel="noopener noreferrer">Add a Post</a>
+</div> <br>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Content</th>
+        <th>URL_Key</th>
+        <th>Tag</th>
+        <th class="a-action">Action</th>
+    </tr>
+    <?php
+    foreach ($block->getPostCollection() as $key => $post) {
+        echo '<tr>
+                    <td>' . $post->getPostId() . '</td>
+                    <td>' . $post->getName() . '</td>
+                    <td>' . $post->getPostContent() . '</td>
+                    <td>' . $post->getUrlKey() . '</td>
+                    <td>' . $post->getTags() . '</td>
+                    <td>
+                    <a class="edit" href="/blog/post/edit/post_id/'.$post->getPostId().'" >Edit</a>
+                    <a class="delete" href="/blog/post/delete/post_id/'.$post->getPostId().'" onclick="return del();" >Delete</a>
+                    </td>
+                  </tr>';
+    }
+    ?>
+</table>
+
+</body>
+</html>
+
+
+<script>
+    function del(){
+        return confirm('Are you sure ???');
+    }
+</script>
